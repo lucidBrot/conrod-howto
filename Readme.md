@@ -19,6 +19,8 @@ And then run it with
 
 Note that most of this code is by conrod, not by me.
 
+This hello world reacts on the <kbd>Escape</kbd> key by closing.
+
 ### The Struggle: Run Their Example
 
 I wrote this sloppily while trying to get this to run. If you would like to see why I'm doing what I'm doing or need reference links, read on!
