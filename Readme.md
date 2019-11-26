@@ -1,5 +1,7 @@
 ## How To Use [Conrod]( https://github.com/PistonDevelopers/conrod )
 
+A **working** hello world GUI written in rust (edition 2018). This is a modified collection of several official code samples. Now it works outside their own crate. 
+
 Writing a GUI in rust. A walkthrough because I was unable to even find the official guide for a very long time. This is not well-written. It's supposed to be easily written and quickly used. No beauty to be found here.
 
 *If you simply want a working `hello-world` and find out the rest by yourself, just grab the files here.*
