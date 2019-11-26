@@ -8,11 +8,3 @@ edition = "2018"
 
 [dependencies]
 conrod = { version = "0.61", features = ["winit", "glium"] }
-# conrod_derive = "0.1.0"
-ui = { path = "../ui" }
-# conrod_core = "0.68"
-# conrod_winit = ""
-# conrod_example_shared = { path = "./conrod_example_shared" }
-# glium = "0.20"
-# winit = ""
-# conrod_glium = "0.68"
