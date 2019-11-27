@@ -5,12 +5,6 @@ use conrod::{widget_ids, widget, Positionable, Colorable, Widget};
 // set window height and width
 use conrod_example_shared::{WIN_W, WIN_H};
 
-/*
- `Surface` is a trait required for glium, specifically for the call to
-`target.clear_color` which is coming later.
- */
-use glium::Surface;
-
 use image;
 
 /*
@@ -27,8 +21,6 @@ event loop, window and context together into a display. The display is the
 home for the UI, and is an OpenGL context provided by glium.
 */
 
-const WIDTH: u32 = 400;
-const HEIGHT: u32 = 200;
 const TITLE: &str = "Hello Conrod!";
 
 
@@ -37,7 +29,6 @@ pub fn main() {
     let mut events_loop = glium::glutin::EventsLoop::new();
     let window = glium::glutin::WindowBuilder::new()
         .with_title(TITLE)
-        ////.with_dimensions((WIDTH, HEIGHT).into());
         .with_dimensions((WIN_W, WIN_H).into());
     let context = glium::glutin::ContextBuilder::new()
         .with_vsync(true)
@@ -60,8 +51,6 @@ pub fn main() {
 
 
     // Generate the widget identifiers.
-    ////widget_ids!(struct Ids { text });
-    ////let ids = Ids::new(ui.widget_id_generator());
     // The `widget::Id` of each widget instantiated in `conrod_example_shared::gui`.
     let ids = conrod_example_shared::Ids::new(ui.widget_id_generator());
 
@@ -133,22 +122,16 @@ pub fn main() {
 
         let mut ui = &mut ui.set_widgets();
 
-        // Add some Hello World Text
-        // "Hello World!" in the middle of the screen.
-        ////widget::Text::new("Hello World!")
-        ////    .middle_of(ui.window)
-        ////    .color(conrod::color::WHITE)
-        ////    .font_size(32)
-        ////    .set(ids.text, ui);
-
         // Instantiate a GUI demonstrating every widget type provided by conrod.
+        // Your GUI could be called here instead
         conrod_example_shared::gui(&mut ui, &ids, &mut app);
 
         // Draw the UI if it has changed
         if let Some(primitives) = ui.draw_if_changed() {
             renderer.fill(&display, primitives, &image_map);
             let mut target = display.draw();
-            ////target.clear_color(0.0, 1.0, 0.0, 1.0);
+            // commented out because the screen would flash green at startup otherwise
+            //target.clear_color(0.0, 1.0, 0.0, 1.0);
             renderer.draw(&display, &mut target, &image_map).unwrap();
             target.finish().unwrap();
         }
