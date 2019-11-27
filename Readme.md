@@ -10,18 +10,27 @@ Writing a GUI in rust. A walkthrough because I was unable to even find the offic
 
 You can grab the files here:
 
-* [src/support/mod.rs](./src/support/mod.rs)
-* [src/lib.rs](src/lib.rs)
-* [Cargo.toml](./Cargo.toml)
-* [examples/hello.rs](examples/hello.rs)
+* [src/support/mod.rs](./hello-world/src/support/mod.rs)
+* [src/lib.rs](./hello-world/src/lib.rs)
+* [Cargo.toml](./hello-world/Cargo.toml)
+* [examples/hello.rs](./hello-world/examples/hello.rs)
 
 And then run it with
 
-```cargo run --example hello```
+```bash
+cd hello-world
+cargo run --example hello
+```
 
 Note that most of this code is by conrod, not by me.
 
 This hello world reacts on the <kbd>Escape</kbd> key by closing.
+
+Similarly, you can run the more advanced example with
+```bash
+cd all-widgets
+cargo run --example all_winit_glium
+```
 
 ### The Struggle: Run Their Example
 
@@ -758,7 +767,7 @@ if let Some(primitives) = ui.draw_if_changed() {
 
 You can grab the files here:
 
-* [src/support/mod.rs](./src/support/mod.rs)
-* [src/lib.rs](src/lib.rs)
-* [Cargo.toml](./Cargo.toml)
-* [examples/hello.rs](./examples/hello.rs)
+* [src/support/mod.rs](./hello-world/src/support/mod.rs)
+* [src/lib.rs](./hello-world/src/lib.rs)
+* [Cargo.toml](./hello-world/Cargo.toml)
+* [examples/hello.rs](./hello-world/examples/hello.rs)
