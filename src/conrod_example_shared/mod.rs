@@ -141,6 +141,7 @@ pub fn gui(ui: &mut conrod::UiCell, ids: &Ids, app: &mut DemoApp) {
         .align_middle_x_of(ids.canvas)
         .center_justify()
         .line_spacing(5.0)
+        .color(conrod::color::WHITE)
         .set(ids.introduction, ui);
 
 
