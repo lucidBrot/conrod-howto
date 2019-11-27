@@ -12,6 +12,7 @@
 
 use conrod;
 use conrod::widget_ids;
+use rand;
 
 pub const WIN_W: u32 = 600;
 pub const WIN_H: u32 = 420;

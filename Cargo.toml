@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 conrod = { version = "0.61", features = ["winit", "glium"] }
+rand = ""

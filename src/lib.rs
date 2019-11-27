@@ -53,14 +53,20 @@ pub fn main() {
 
 
     // Generate the widget identifiers.
-    widget_ids!(struct Ids { text });
-    let ids = Ids::new(ui.widget_id_generator());
+    ////widget_ids!(struct Ids { text });
+    ////let ids = Ids::new(ui.widget_id_generator());
+    // The `widget::Id` of each widget instantiated in `conrod_example_shared::gui`.
+    let ids = conrod_example_shared::Ids::new(ui.widget_id_generator());
 
     /*
        Conrod can use graphics. It stores these in a map. The system needs the map,
        even though it doesn't contain anything at this time, so create it:
        */
     let image_map = conrod::image::Map::<glium::texture::Texture2d>::new();
+
+
+    // A demonstration of some app state that we want to control with the conrod GUI.
+    let mut app = conrod_example_shared::DemoApp::new(rust_logo);
 
     /*
        Finally, Conrod needs to render its UI. It uses a renderer to do this, so
@@ -110,11 +116,11 @@ pub fn main() {
 
         // Add some Hello World Text
         // "Hello World!" in the middle of the screen.
-        widget::Text::new("Hello World!")
-            .middle_of(ui.window)
-            .color(conrod::color::WHITE)
-            .font_size(32)
-            .set(ids.text, ui);
+        ////widget::Text::new("Hello World!")
+        ////    .middle_of(ui.window)
+        ////    .color(conrod::color::WHITE)
+        ////    .font_size(32)
+        ////    .set(ids.text, ui);
 
         // Instantiate a GUI demonstrating every widget type provided by conrod.
         conrod_example_shared::gui(&mut ui.set_widgets(), &ids, &mut app);
