@@ -13,6 +13,8 @@ use glium::Surface;
  */
 mod support;
 
+mod conrod_example_shared;
+
 /*
  The first chunk of boilerplate creates an event loop, which will handle
 interaction with the UI, then a window, then a context, then finally links the
@@ -113,6 +115,9 @@ pub fn main() {
             .color(conrod::color::WHITE)
             .font_size(32)
             .set(ids.text, ui);
+
+        // Instantiate a GUI demonstrating every widget type provided by conrod.
+        conrod_example_shared::gui(&mut ui.set_widgets(), &ids, &mut app);
 
         // Draw the UI if it has changed
         if let Some(primitives) = ui.draw_if_changed() {

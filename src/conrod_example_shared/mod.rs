@@ -10,27 +10,27 @@
 //! and drawing backends behave in the same manner.
 #![allow(dead_code)]
 
-#[macro_use] extern crate conrod_core;
-extern crate rand;
+use conrod;
+use conrod::widget_ids;
 
 pub const WIN_W: u32 = 600;
 pub const WIN_H: u32 = 420;
 
 /// A demonstration of some application state we want to control with a conrod GUI.
 pub struct DemoApp {
-    ball_xy: conrod_core::Point,
-    ball_color: conrod_core::Color,
+    ball_xy: conrod::Point,
+    ball_color: conrod::Color,
     sine_frequency: f32,
-    rust_logo: conrod_core::image::Id,
+    rust_logo: conrod::image::Id,
 }
 
 
 impl DemoApp {
     /// Simple constructor for the `DemoApp`.
-    pub fn new(rust_logo: conrod_core::image::Id) -> Self {
+    pub fn new(rust_logo: conrod::image::Id) -> Self {
         DemoApp {
             ball_xy: [0.0, 0.0],
-            ball_color: conrod_core::color::WHITE,
+            ball_color: conrod::color::WHITE,
             sine_frequency: 1.0,
             rust_logo: rust_logo,
         }
@@ -38,23 +38,23 @@ impl DemoApp {
 }
 
 /// A set of reasonable stylistic defaults that works for the `gui` below.
-pub fn theme() -> conrod_core::Theme {
-    use conrod_core::position::{Align, Direction, Padding, Position, Relative};
-    conrod_core::Theme {
+pub fn theme() -> conrod::Theme {
+    use conrod::position::{Align, Direction, Padding, Position, Relative};
+    conrod::Theme {
         name: "Demo Theme".to_string(),
         padding: Padding::none(),
         x_position: Position::Relative(Relative::Align(Align::Start), None),
         y_position: Position::Relative(Relative::Direction(Direction::Backwards, 20.0), None),
-        background_color: conrod_core::color::DARK_CHARCOAL,
-        shape_color: conrod_core::color::LIGHT_CHARCOAL,
-        border_color: conrod_core::color::BLACK,
+        background_color: conrod::color::DARK_CHARCOAL,
+        shape_color: conrod::color::LIGHT_CHARCOAL,
+        border_color: conrod::color::BLACK,
         border_width: 0.0,
-        label_color: conrod_core::color::WHITE,
+        label_color: conrod::color::WHITE,
         font_id: None,
         font_size_large: 26,
         font_size_medium: 18,
         font_size_small: 12,
-        widget_styling: conrod_core::theme::StyleMap::default(),
+        widget_styling: conrod::theme::StyleMap::default(),
         mouse_drag_threshold: 0.0,
         double_click_threshold: std::time::Duration::from_millis(500),
     }
@@ -102,14 +102,14 @@ widget_ids! {
 
 
 /// Instantiate a GUI demonstrating every widget available in conrod.
-pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
-    use conrod_core::{widget, Colorable, Labelable, Positionable, Sizeable, Widget};
+pub fn gui(ui: &mut conrod::UiCell, ids: &Ids, app: &mut DemoApp) {
+    use conrod::{widget, Colorable, Labelable, Positionable, Sizeable, Widget};
     use std::iter::once;
 
-    const MARGIN: conrod_core::Scalar = 30.0;
-    const SHAPE_GAP: conrod_core::Scalar = 50.0;
-    const TITLE_SIZE: conrod_core::FontSize = 42;
-    const SUBTITLE_SIZE: conrod_core::FontSize = 32;
+    const MARGIN: conrod::Scalar = 30.0;
+    const SHAPE_GAP: conrod::Scalar = 50.0;
+    const TITLE_SIZE: conrod::FontSize = 42;
+    const SUBTITLE_SIZE: conrod::FontSize = 32;
 
     // `Canvas` is a widget that provides some basic functionality for laying out children widgets.
     // By default, its size is the size of the window. We'll use this as a background for the
@@ -132,7 +132,7 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
         \n\nThe widget that you are currently looking at is the Text widget. The Text widget \
         is one of several special \"primitive\" widget types which are used to construct \
         all other widget types. These types are \"special\" in the sense that conrod knows \
-        how to render them via `conrod_core::render::Primitive`s.\
+        how to render them via `conrod::render::Primitive`s.\
         \n\nScroll down to see more widgets!";
     widget::Text::new(INTRODUCTION)
         .padded_w_of(ids.canvas, MARGIN)
@@ -163,7 +163,7 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
         .align_middle_x_of(ids.canvas)
         .kid_area_w_of(ids.canvas)
         .h(360.0)
-        .color(conrod_core::color::TRANSPARENT)
+        .color(conrod::color::TRANSPARENT)
         .pad(MARGIN)
         .flow_down(&[
             (ids.shapes_left_col, widget::Canvas::new()),
@@ -176,7 +176,7 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
     let h = shapes_canvas_rect.h() * 5.0 / 6.0;
     let radius = 10.0;
     widget::RoundedRectangle::fill([w, h], radius)
-        .color(conrod_core::color::CHARCOAL.alpha(0.25))
+        .color(conrod::color::CHARCOAL.alpha(0.25))
         .middle_of(ids.shapes_canvas)
         .set(ids.rounded_rectangle, ui);
 
@@ -219,7 +219,7 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
         .font_size(SUBTITLE_SIZE)
         .set(ids.image_title, ui);
 
-    const LOGO_SIDE: conrod_core::Scalar = 144.0;
+    const LOGO_SIDE: conrod::Scalar = 144.0;
     widget::Image::new(app.rust_logo)
         .w_h(LOGO_SIDE, LOGO_SIDE)
         .down(60.0)
@@ -253,8 +253,8 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
         .w_h(side, side)
         .set(ids.button, ui)
     {
-        let x = rand::random::<conrod_core::Scalar>() * (max_x - min_x) - max_x;
-        let y = rand::random::<conrod_core::Scalar>() * (max_y - min_y) - max_y;
+        let x = rand::random::<conrod::Scalar>() * (max_x - min_x) - max_x;
+        let y = rand::random::<conrod::Scalar>() * (max_y - min_y) - max_y;
         app.ball_xy = [x, y];
     }
 
@@ -270,16 +270,16 @@ pub fn gui(ui: &mut conrod_core::UiCell, ids: &Ids, app: &mut DemoApp) {
         app.ball_xy = [x, y];
     }
 
-    let is_white = app.ball_color == conrod_core::color::WHITE;
+    let is_white = app.ball_color == conrod::color::WHITE;
     let label = if is_white { "WHITE" } else { "BLACK" };
     for is_white in widget::Toggle::new(is_white)
         .label(label)
-        .label_color(if is_white { conrod_core::color::WHITE } else { conrod_core::color::LIGHT_CHARCOAL })
+        .label_color(if is_white { conrod::color::WHITE } else { conrod::color::LIGHT_CHARCOAL })
         .mid_right_with_margin_on(ids.canvas, MARGIN)
         .align_middle_y_of(ids.button)
         .set(ids.toggle, ui)
     {
-        app.ball_color = if is_white { conrod_core::color::WHITE } else { conrod_core::color::BLACK };
+        app.ball_color = if is_white { conrod::color::WHITE } else { conrod::color::BLACK };
     }
 
     let ball_x = app.ball_xy[0];
