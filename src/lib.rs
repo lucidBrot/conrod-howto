@@ -75,7 +75,7 @@ pub fn main() {
        Conrod can use graphics. It stores these in a map. The system needs the map,
        even though it doesn't contain anything at this time, so create it:
        */
-    let image_map = conrod::image::Map::<glium::texture::Texture2d>::new();
+    let mut image_map = conrod::image::Map::<glium::texture::Texture2d>::new();
     let rust_logo = image_map.insert(load_rust_logo(&display));
 
 
