@@ -126,7 +126,7 @@ pub fn main() {
             };
         }
 
-        let ui = &mut ui.set_widgets();
+        let mut ui = &mut ui.set_widgets();
 
         // Add some Hello World Text
         // "Hello World!" in the middle of the screen.
@@ -137,7 +137,7 @@ pub fn main() {
         ////    .set(ids.text, ui);
 
         // Instantiate a GUI demonstrating every widget type provided by conrod.
-        conrod_example_shared::gui(&mut ui.set_widgets(), &ids, &mut app);
+        conrod_example_shared::gui(&mut ui, &ids, &mut app);
 
         // Draw the UI if it has changed
         if let Some(primitives) = ui.draw_if_changed() {
