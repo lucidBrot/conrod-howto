@@ -8,6 +8,8 @@ use conrod::{widget_ids, widget, Positionable, Colorable, Widget};
  */
 use glium::Surface;
 
+use image;
+
 /*
  Support contains much boilerplate code for the event loop. It constrains e.g. it's rate to be only 60 FPS.
  */
@@ -58,11 +60,23 @@ pub fn main() {
     // The `widget::Id` of each widget instantiated in `conrod_example_shared::gui`.
     let ids = conrod_example_shared::Ids::new(ui.widget_id_generator());
 
+    // Load the Rust logo from our assets folder to use as an example image.
+    fn load_rust_logo(display: &glium::Display) -> conrod::glium::texture::Texture2d {
+        const RUST_LOGO_PATH: &'static str =
+            concat!(env!("CARGO_MANIFEST_DIR"), "/assets/images/rust.png");
+        let rgba_image = image::open(&std::path::Path::new(&RUST_LOGO_PATH)).unwrap().to_rgba();
+        let image_dimensions = rgba_image.dimensions();
+        let raw_image = conrod::glium::texture::RawImage2d::from_raw_rgba_reversed(&rgba_image.into_raw(), image_dimensions);
+        let texture = conrod::glium::texture::Texture2d::new(display, raw_image).unwrap();
+        texture
+    }
+
     /*
        Conrod can use graphics. It stores these in a map. The system needs the map,
        even though it doesn't contain anything at this time, so create it:
        */
     let image_map = conrod::image::Map::<glium::texture::Texture2d>::new();
+    let rust_logo = image_map.insert(load_rust_logo(&display));
 
 
     // A demonstration of some app state that we want to control with the conrod GUI.
