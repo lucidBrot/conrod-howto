@@ -47,9 +47,10 @@ pub fn main() {
     /*
        Now create the UI itself. Conrod has a builder that contains and looks after
        the UI for the user.
-       */
-    let mut ui = conrod::UiBuilder::new([WIDTH as f64, HEIGHT as f64]).build();
 
+       And apply the theme from the helper file.
+       */
+    let mut ui = conrod::UiBuilder::new([WIN_W as f64, WIN_H as f64]).theme(conrod_example_shared::theme()).build();
     /*
        Boilerplate code to load fonts into the Ui's font::Map
        */
