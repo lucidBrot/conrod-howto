@@ -2,6 +2,9 @@
 use conrod::backend::glium::glium;
 use conrod::{widget_ids, widget, Positionable, Colorable, Widget};
 
+// set window height and width
+use conrod_example_shared::{WIN_W, WIN_H};
+
 /*
  `Surface` is a trait required for glium, specifically for the call to
 `target.clear_color` which is coming later.
@@ -34,7 +37,8 @@ pub fn main() {
     let mut events_loop = glium::glutin::EventsLoop::new();
     let window = glium::glutin::WindowBuilder::new()
         .with_title(TITLE)
-        .with_dimensions((WIDTH, HEIGHT).into());
+        ////.with_dimensions((WIDTH, HEIGHT).into());
+        .with_dimensions((WIN_W, WIN_H).into());
     let context = glium::glutin::ContextBuilder::new()
         .with_vsync(true)
         .with_multisampling(4);
